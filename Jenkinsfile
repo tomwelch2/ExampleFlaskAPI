@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('moveFiles') {
 	    steps {
+		sh "chmod 400 airflowkey.pem"
 		moveFiles('docker-compose.yml')
 		moveFiles('API/api.py')
 		moveFiles('setup/setup.py')
