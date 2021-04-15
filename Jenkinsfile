@@ -36,6 +36,6 @@ void moveFiles(file) {
 	    throw new Exception("Missing value for pkey")
 	}
     sshagent(credentials:["${env.sshcredentials}"]) {
-	sh "scp -o StrictHostKeyChecking=no ${file} ubuntu@${env.EC2_PUBLIC_IP}:/home/ubuntu"
+	sh "scp -i airflowkey.pem -o StrictHostKeyChecking=no ${file} ubuntu@${env.EC2_PUBLIC_IP}:/home/ubuntu"
     }
 }
