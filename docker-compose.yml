@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+        mysql:
+                image: mysql
+                ports:
+                        - 3307:3306
+                environment:
+                        - MYSQL_ROOT_PASSWORD=root
+                        - MYSQL_DATABASE=mydb
+        setup:
+                build: ./setup
+                volumes:
+                        - ./setup:/usr/src/app
+                depends_on:
+                        - mysql
+        api:
+                build: ./API
+                volumes:
+                        - ./API:/usr/src/app
+                ports:
+                        - 5000:5000
+                depends_on:
+                        - mysql
+                        - setup

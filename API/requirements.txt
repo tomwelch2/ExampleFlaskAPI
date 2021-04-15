@@ -1,0 +1,6 @@
+pandas
+SQLAlchemy
+pymysql
+flask
+flask_restful
+cryptography
