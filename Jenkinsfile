@@ -1,16 +1,25 @@
 pipeline {
     agent any
     stages {
+	stage('installDependencies') {
+	    steps {
+		sh 'sudo apt-get update'
+		sh 'sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release'
+		sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg'
+		sh 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null'
+		sh 'sudo apt-get update'
+		sh 'sudo apt-get install -y docker-ce docker-ce-cli containerd.io'
+	    }
+	}
         stage('moveFiles') {
 	    steps {
-		sh "chmod 400 airflowkey.pem"
+		sh "chmod 400 ${env.pkey}"
 		moveFiles('docker-compose.yml')
 		moveFiles('API/api.py')
 		moveFiles('setup/setup.py')
 		moveFiles('setup/create_database.sql')
 		moveFiles('setup/create_table.sql')
 		moveFiles('setup/insert_data.sql')
-		moveFiles('tests/test.py')
 		sh 'echo Files Moved Successfully!'
 	    }
 	}
@@ -37,6 +46,6 @@ void moveFiles(file) {
 	    throw new Exception("Missing value for pkey")
 	}
     sshagent(credentials:["${env.sshcredentials}"]) {
-	sh "scp -i airflowkey.pem -o StrictHostKeyChecking=no ${file} ubuntu@${env.EC2_PUBLIC_IP}:/home/ubuntu"
+	sh "scp -i ${env.pkey} -o StrictHostKeyChecking=no ${file} ubuntu@${env.EC2_PUBLIC_IP}:/home/ubuntu"
     }
 }
