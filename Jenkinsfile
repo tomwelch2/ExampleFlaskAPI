@@ -2,10 +2,10 @@ pipeline {
     agent any
     stages {
 	stage('installDependencies') {
-	    script {
-		load './env.groovy'
-	    }
 	    steps {
+		script {
+		    load './env.groovy'
+		}
 		sshagent(credentials:["${env.sshcredentials}"]) {
 		    sh 'sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release'
 		    sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg'
