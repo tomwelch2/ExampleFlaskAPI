@@ -25,10 +25,13 @@ pipeline {
 		    sh "chmod 400 ${env.pkey}"
 		    moveFiles('docker-compose.yml', '/home/ubuntu')
 	 	    moveFiles('API/api.py', '/home/ubuntu/API')
+		    moveFiles('API/Dockerfile', '/home/ubuntu/API')
+		    moveFiles('API/requirements.txt', '/home/ubuntu/API')
 		    moveFiles('setup/setup.py', '/home/ubuntu/setup')
 		    moveFiles('setup/create_database.sql', '/home/ubuntu/setup')
 		    moveFiles('setup/create_table.sql', '/home/ubuntu/setup')
 		    moveFiles('setup/insert_data.sql', '/home/ubuntu/setup')
+		    moveFiles('setup/Dockerfile', '/home/ubuntu/setup')
 		    sh 'echo Files Moved Successfully!'
 	    }
 	}
