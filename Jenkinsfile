@@ -24,14 +24,15 @@ pipeline {
 		    sh 'echo Files Moved Successfully!'
 	    }
 	}
-	stage('testAPI') {
-	    steps {
-		sshagent(credentials:["${env.sshcredentials}"]) {
-	            sh 'python3 tests/test.py'
-		}
+    }
+	post {
+	    success {
+		sh "echo Success!"
+	    }
+	    failure {
+		sh "Failed :("
 	    }
 	}
-    }
 }
 
 
