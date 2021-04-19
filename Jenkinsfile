@@ -12,31 +12,29 @@ pipeline {
 	    }
 	}
     }
+	stage("makeDirs") {
+	    steps {
+		sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'mkdir API'"
+		sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'mkdir setup'"
+	    }
+	}
         stage('moveFiles') {
 	    steps {
 		    sh "chmod 400 ${env.pkey}"
-		    moveFiles('docker-compose.yml')
-	 	    moveFiles('API/api.py')
-		    moveFiles('setup/setup.py')
-		    moveFiles('setup/create_database.sql')
-		    moveFiles('setup/create_table.sql')
-		    moveFiles('setup/insert_data.sql')
+		    moveFiles('docker-compose.yml', '/home/ubuntu')
+	 	    moveFiles('API/api.py', '/home/ubuntu/API')
+		    moveFiles('setup/setup.py', '/home/ubuntu/setup')
+		    moveFiles('setup/create_database.sql', '/home/ubuntu/setup')
+		    moveFiles('setup/create_table.sql', '/home/ubuntu/setup')
+		    moveFiles('setup/insert_data.sql', '/home/ubuntu/setup')
 		    sh 'echo Files Moved Successfully!'
 	    }
 	}
     }
-	post {
-	    success {
-		sh "echo Success!"
-	    }
-	    failure {
-		sh "Failed :("
-	    }
-	}
 }
 
 
-void moveFiles(file) {
+void moveFiles(file, path) {
     load './env.groovy'
     if ("${env.EC2_PUBLIC_IP}" == "") {
 	    throw new Exception('Missing value for EC2 Public IP')
@@ -48,6 +46,6 @@ void moveFiles(file) {
 	    throw new Exception("Missing value for pkey")
 	}
     sshagent(credentials:["${env.sshcredentials}"]) {
-	sh "scp -i ${env.pkey} -o StrictHostKeyChecking=no ${file} ubuntu@${env.EC2_PUBLIC_IP}:/home/ubuntu"
+	sh "scp -i ${env.pkey} -o StrictHostKeyChecking=no ${file} ubuntu@${env.EC2_PUBLIC_IP}:${path}"
     }
 }
