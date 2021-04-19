@@ -14,8 +14,10 @@ pipeline {
     }
 	stage("makeDirs") {
 	    steps {
-		sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'mkdir API'"
-		sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'mkdir setup'"
+		sshagent(credentials:["$(env.sshcredentials)"]) {
+		    sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'mkdir API'"
+		    sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'mkdir setup'"
+		}
 	    }
 	}
         stage('moveFiles') {
