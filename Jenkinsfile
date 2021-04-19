@@ -14,7 +14,7 @@ pipeline {
     }
 	stage("makeDirs") {
 	    steps {
-		sshagent(credentials:["$(env.sshcredentials)"]) {
+		sshagent(credentials:["${env.sshcredentials}"]) {
 		    sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'mkdir API'"
 		    sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'mkdir setup'"
 		}
