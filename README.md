@@ -43,16 +43,30 @@ which returns fake "employee" data with features such as salary, branch_id and f
 The data used for the API is obtained through a MySQL database which is created and populated
 once the ```docker-compose up --build``` command is issued and is connected directly to the API
 using Pandas and SQLAlchemy. There is only currently one endpoint, **/all** in the API which
-returns all data on all employees (roughly 10 rows just for demonstrative purposes).
+returns all data on all employees (roughly 5 rows just for demonstrative purposes).
 
 In terms of cloud infrastructure, Terraform was used to automatically provision an EC2 instance
 to run the API on, with a CI/CD pipeline ran via Jenkins being used to install dependencies and
 move the API files to the EC2 instance so that it can be accessed outside of localhost.
 
 
+<h1>Running the code</h1>
+<h2>Local Mode </h2>
 
+To run the API locally, simply run a ```docker-compose up``` command in the base directory of the 
+repository and wait for the setup to finish. Once the setup is complete, the API will be available
+at **http://0.0.0.0:5000/all**.
 
+<h2>In the cloud</h2>
 
+To run the API on a AWS EC2 instance (allowing for connections from outside localhost) change
+to the **terraform** directory and open the ```terraform.tfvars``` file. Edit the file
+to reflect the individual keys for your AWS account (Access Key, Secret Key, Region) and
+the key-file to be used to allow access into the EC2 instance via SSH. 
+
+Once these configurations have been applied, run ```terraform apply``` in the **terraform**
+directory and enter **yes** when asked to do so. The terminal will output an IP address, note
+this IP address down as you will need it later
 
 
 
