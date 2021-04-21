@@ -77,4 +77,4 @@ used for the SSH connection through Jenkins, as well as the name of the key-file
 EC2 instance in the ```env.pkey``` variable. 
 
 Now the configuration is complete, go to your Jenkins UI and run the pipeline. The API should be running and can
-be access via the EC2 instance's IP plus the endpoint **/all**.
+be accessed via the EC2 instance's IP plus the endpoint **/all**.
