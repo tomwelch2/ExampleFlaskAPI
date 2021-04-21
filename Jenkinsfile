@@ -9,6 +9,7 @@ pipeline {
 		sshagent(credentials:["${env.sshcredentials}"]) {
 		    sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'sudo apt-get update'"
 		    sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'sudo apt-get install -y docker.io'"
+		    sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'sudo apt-get install -y docker-compose'"
 	    }
 	}
     }
@@ -33,6 +34,12 @@ pipeline {
 		    moveFiles('setup/insert_data.sql', '/home/ubuntu/setup')
 		    moveFiles('setup/Dockerfile', '/home/ubuntu/setup')
 		    sh 'echo Files Moved Successfully!'
+	    }
+	}
+	stage('startAPI') {
+	    steps {
+		sshagent(credentials:["${env.sshcredentials}"]) {
+                    sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'docker-compose up --build'"
 	    }
 	}
     }
