@@ -68,7 +68,7 @@ Once these configurations have been applied, run ```terraform apply``` in the **
 directory and enter **yes** when asked to do so. The terminal will output an IP address, note
 this IP address down as you will need it later.
 
-https://github.com/tomwelch2/ExampleFlaskAPI/blob/master/images/Screenshot%20from%202021-04-21%2015-28-01.png
+![alt-text](https://github.com/tomwelch2/ExampleFlaskAPI/blob/master/images/Screenshot%20from%202021-04-21%2015-28-01.png)
 
 
 
