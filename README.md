@@ -70,6 +70,11 @@ this IP address down as you will need it later.
 
 ![alt-text](https://github.com/tomwelch2/ExampleFlaskAPI/blob/master/images/Screenshot%20from%202021-04-21%2015-28-01.png)
 
+After you have obtained the IP for the EC2 instance you just created, change to the base directory of the 
+repository and edit the file ```env.groovy```. Paste the IP you recieved earlier into the ```env.EC2_PUBLIC_IP```
+variable. Ensure you also change the ```env.sshcredentials``` value to reflect the name of the credentials being
+used for the SSH connection through Jenkins, as well as the name of the key-file being used to SSH into the
+EC2 instance in the ```env.pkey``` variable. 
 
-
-
+Now the configuration is complete, go to your Jenkins UI and run the pipeline. The API should be running and can
+be accessed via the EC2 instance's IP plus the endpoint **/all**.
