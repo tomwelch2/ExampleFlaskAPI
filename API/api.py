@@ -14,7 +14,7 @@ sleep(35)
 
 #Connecting to DB and extracting data ---
 
-URL = "mysql+pymysql://tom:Gogos123@localhost:3306/my_company"
+URL = "mysql+pymysql://root:root@mysql:3306/company"
 
 engine = create_engine(URL)
 
