@@ -42,6 +42,7 @@ pipeline {
                     sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'docker-compose up --build'"
 	    }
 	}
+	}
 }
 
 
