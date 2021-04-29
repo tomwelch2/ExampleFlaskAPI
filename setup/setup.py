@@ -29,7 +29,9 @@ with open("insert_data.sql", "r") as f:
     insert_data = f.read().strip()
     statements.append(insert_data)
 
-
+with open('create_users_tbl.sql', "r") as f:
+    create_users_tbl = f.read().strip()
+    statements.append(create_users_tbl)
 #Executing queries for setup ---
 
 for query in statements:

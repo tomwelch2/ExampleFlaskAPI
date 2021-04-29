@@ -71,10 +71,15 @@ class allData(Resource):
         """Endpoint returns all data from database."""
         return emp_df
 
+class filterData(Resource):
+    @verify_token
+    def get(self, empid):
+        return [emp for emp in emp_df if emp["emp_id"] == empid][0]
+
 
 api.add_resource(allData, "/all")
 api.add_resource(Login, '/login')
-
+api.add_resource(filterData, '<int:empid>')
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", port = 4000)
