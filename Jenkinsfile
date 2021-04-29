@@ -45,6 +45,7 @@ pipeline {
 	}
 }
 
+}
 
 void moveFiles(file, path) {
     load './env.groovy'
@@ -60,5 +61,4 @@ void moveFiles(file, path) {
     sshagent(credentials:["${env.sshcredentials}"]) {
 	sh "scp -i ${env.pkey} -o StrictHostKeyChecking=no ${file} ubuntu@${env.EC2_PUBLIC_IP}:${path}"
     }
-}
 }
