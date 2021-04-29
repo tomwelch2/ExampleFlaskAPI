@@ -33,6 +33,8 @@ pipeline {
 		    moveFiles('setup/create_table.sql', '/home/ubuntu/setup')
 		    moveFiles('setup/insert_data.sql', '/home/ubuntu/setup')
 		    moveFiles('setup/Dockerfile', '/home/ubuntu/setup')
+			moveFiles('setup/create_users_tbl.sql', '/home/ubuntu/setup')
+			moveFiles('setup/add_admin_user.sql', '/home/ubuntu/setup')
 		    sh 'echo Files Moved Successfully!'
 	    }
 	}
