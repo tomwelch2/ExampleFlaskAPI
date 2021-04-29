@@ -49,7 +49,7 @@ class Login(Resource):
             "user": request.authorization.username
         }, app.config["SECRET_KEY"])
 
-        return json.dumps({"Token": token})
+        return {"Token": token}
 
 
 def verify_token(f):
