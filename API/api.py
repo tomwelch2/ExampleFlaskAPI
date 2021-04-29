@@ -49,7 +49,7 @@ class Login(Resource):
             "user": request.authorization.username
         }, app.config["SECRET_KEY"])
 
-        return json.dumps({"Token": token.decode("UTF-8")})
+        return json.dumps({"Token": token})
 
 
 def verify_token(f):
@@ -57,7 +57,7 @@ def verify_token(f):
     def decorator(*args, **kwargs):
         received_token = request.args.get("token", None)
 
-        if not received_token or received_token != token.decode("UTF-8"):
+        if not received_token or received_token != token:
             return {"Error": "Invalid or missing API key"}
         
         return f(*args, **kwargs)
@@ -74,12 +74,15 @@ class allData(Resource):
 class filterData(Resource):
     @verify_token
     def get(self, empid):
-        return [emp for emp in emp_df if emp["emp_id"] == empid][0]
+        try:
+            return [emp for emp in emp_df if emp["emp_id"] == empid][0]
+        except IndexError:
+            return {"Error": "No employee with ID {}".format(empid)}
 
 
 api.add_resource(allData, "/all")
 api.add_resource(Login, '/login')
-api.add_resource(filterData, '<int:empid>')
+api.add_resource(filterData, '/<int:empid>')
 
 if __name__ == "__main__":
-    app.run(host = "0.0.0.0", port = 4000)
+    app.run(host = "0.0.0.0", port = 5000)

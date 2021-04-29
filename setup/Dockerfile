@@ -8,6 +8,10 @@ COPY ./create_table.sql /
 
 COPY ./insert_data.sql /
 
+COPY ./create_users_tbl.sql /
+
+COPY ./add_admin_user.sql /
+
 RUN pip3 install sqlalchemy
 
 RUN pip3 install pymysql

@@ -32,6 +32,11 @@ with open("insert_data.sql", "r") as f:
 with open('create_users_tbl.sql', "r") as f:
     create_users_tbl = f.read().strip()
     statements.append(create_users_tbl)
+
+with open("add_admin_user.sql", "r") as f:
+    add_admin_user = f.read().strip()
+    statements.append(add_admin_user)
+
 #Executing queries for setup ---
 
 for query in statements:

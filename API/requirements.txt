@@ -1,3 +1,6 @@
+pyjwt
+flask_httpauth
+uuid
 pandas
 SQLAlchemy
 pymysql
