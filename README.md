@@ -42,10 +42,8 @@ Flask and Flask Restful Python libraries have been used to create a simple REST 
 which returns fake "employee" data with features such as salary, branch_id and firstname.
 The data used for the API is obtained through a MySQL database which is created and populated
 once the ```docker-compose up --build``` command is issued and is connected directly to the API
-using Pandas and SQLAlchemy. There is only currently one endpoint, **/all** in the API which
-returns all data on all employees (roughly 5 rows just for demonstrative purposes). an NGINX
-HTTP reverse proxy has also been used, meaning that the API can be accessed on port 80 as well
-as the API's main port of 5000.
+using Pandas and SQLAlchemy.an NGINX HTTP reverse proxy has also been used, meaning that the API 
+can be accessed on port 80 as well as the API's main port of 5000.
 
 In terms of cloud infrastructure, Terraform was used to automatically provision an EC2 instance
 to run the API on, with a CI/CD pipeline ran via Jenkins being used to install dependencies and
@@ -58,6 +56,11 @@ move the API files to the EC2 instance so that it can be accessed outside of loc
 To run the API locally, simply run a ```docker-compose up``` command in the base directory of the 
 repository and wait for the setup to finish. Once the setup is complete, the API will be available
 at **http://0.0.0.0:5000/all**.
+
+To access the API, you **must access the /login endpoint first**. This will prompt you for a username
+and password, which, by default, is set to **admin** for both the username and password. A random token
+will then be generated, which you will need to pass each time you wish to access either the /all
+endpoint or the /<int:empid> endpoint in the format **http://hostname:port/endpoint?token=GENERATED_TOKEN**.
 
 <h2>In the cloud</h2>
 
