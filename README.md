@@ -43,7 +43,9 @@ which returns fake "employee" data with features such as salary, branch_id and f
 The data used for the API is obtained through a MySQL database which is created and populated
 once the ```docker-compose up --build``` command is issued and is connected directly to the API
 using Pandas and SQLAlchemy. There is only currently one endpoint, **/all** in the API which
-returns all data on all employees (roughly 5 rows just for demonstrative purposes).
+returns all data on all employees (roughly 5 rows just for demonstrative purposes). an NGINX
+HTTP reverse proxy has also been used, meaning that the API can be accessed on port 80 as well
+as the API's main port of 5000.
 
 In terms of cloud infrastructure, Terraform was used to automatically provision an EC2 instance
 to run the API on, with a CI/CD pipeline ran via Jenkins being used to install dependencies and
