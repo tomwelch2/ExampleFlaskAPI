@@ -42,7 +42,7 @@ Flask and Flask Restful Python libraries have been used to create a simple REST 
 which returns fake "employee" data with features such as salary, branch_id and firstname.
 The data used for the API is obtained through a MySQL database which is created and populated
 once the ```docker-compose up --build``` command is issued and is connected directly to the API
-using Pandas and SQLAlchemy.an NGINX HTTP reverse proxy has also been used, meaning that the API 
+using Pandas and SQLAlchemy. An NGINX HTTP reverse proxy has also been used, meaning that the API 
 can be accessed on port 80 as well as the API's main port of 5000.
 
 In terms of cloud infrastructure, Terraform was used to automatically provision an EC2 instance
