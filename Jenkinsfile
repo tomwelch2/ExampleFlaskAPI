@@ -42,7 +42,7 @@ pipeline {
 	stage('startAPI') {
 	    steps {
 		sshagent(credentials:["${env.sshcredentials}"]) {
-                    sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'docker-compose up --build'"
+                    sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'sudo docker-compose up --build'"
 	    }
 	}
 	}
