@@ -46,7 +46,7 @@ class Login(Resource):
     def get(self):
         global token
         token = jwt.encode({
-            "user": request.authorization.username
+            "user": request.authorization.get("username")
         }, app.config["SECRET_KEY"])
 
         return {"Token": token}
