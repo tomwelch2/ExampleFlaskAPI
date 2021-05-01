@@ -3,18 +3,22 @@
 <h2>Repository Structure</h2>
 
 ```
-.
-├── airflowkey.pem
 ├── API
 │   ├── api.py
 │   ├── Dockerfile
 │   └── requirements.txt
 ├── docker-compose.yml
 ├── env.groovy
+├── images
+│   └── Screenshot from 2021-04-21 15-28-01.png
 ├── Jenkinsfile
+├── nginx.conf
+├── README.md
 ├── setup
+│   ├── add_admin_user.sql
 │   ├── create_database.sql
 │   ├── create_table.sql
+│   ├── create_users_tbl.sql
 │   ├── Dockerfile
 │   ├── insert_data.sql
 │   └── setup.py
@@ -24,6 +28,7 @@
     ├── terraform.tfstate
     ├── terraform.tfstate.backup
     └── terraform.tfvars
+
 
 ```
 
