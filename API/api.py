@@ -2,6 +2,7 @@ import json
 import pandas as pd
 import jwt
 import uuid
+import werkzeug.security as werkzeug
 from sqlalchemy import create_engine
 from flask import Flask, request
 from flask_restful import Resource, Api
@@ -44,20 +45,22 @@ def verify_password(username, password):
 class Login(Resource):
     @auth.login_required
     def get(self):
-        global token
         token = jwt.encode({
             "user": request.authorization.get("username")
         }, app.config["SECRET_KEY"])
 
-        return {"Token": token}
+        global hash_token
+        hash_token = werkzeug.generate_password_hash(token, "sha256")
+
+        return {"Token": hash_token}
 
 
 def verify_token(f):
     @wraps(f)
     def decorator(*args, **kwargs):
         received_token = request.args.get("token", None)
-
-        if not received_token or received_token != token:
+        
+        if not received_token or received_token != hash_token:
             return {"Error": "Invalid or missing API key"}
         
         return f(*args, **kwargs)
@@ -82,7 +85,6 @@ class filterData(Resource):
 
 api.add_resource(allData, "/all")
 api.add_resource(Login, '/login')
-api.add_resource(filterData, '/<int:empid>')
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", port = 5000)
