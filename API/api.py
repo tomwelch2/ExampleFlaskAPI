@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_httpauth import HTTPBasicAuth
+from flask_cache import Cache
 from time import sleep
 from functools import wraps
 
