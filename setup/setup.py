@@ -17,6 +17,7 @@ con = engine.connect()
 
 statements = []
 
+#Appending each SQL query to a Python list to execute via for-loop
 with open("create_database.sql", "r") as f:
     create_db = f.read().strip()
     statements.append(create_db)
@@ -43,6 +44,6 @@ for query in statements:
     con.execute(query)
 
 
-con.close()
+con.close() #Closing connection
 
 

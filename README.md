@@ -3,18 +3,22 @@
 <h2>Repository Structure</h2>
 
 ```
-.
-├── airflowkey.pem
 ├── API
 │   ├── api.py
 │   ├── Dockerfile
 │   └── requirements.txt
 ├── docker-compose.yml
 ├── env.groovy
+├── images
+│   └── Screenshot from 2021-04-21 15-28-01.png
 ├── Jenkinsfile
+├── nginx.conf
+├── README.md
 ├── setup
+│   ├── add_admin_user.sql
 │   ├── create_database.sql
 │   ├── create_table.sql
+│   ├── create_users_tbl.sql
 │   ├── Dockerfile
 │   ├── insert_data.sql
 │   └── setup.py
@@ -24,6 +28,7 @@
     ├── terraform.tfstate
     ├── terraform.tfstate.backup
     └── terraform.tfvars
+
 
 ```
 
@@ -42,7 +47,7 @@ Flask and Flask Restful Python libraries have been used to create a simple REST 
 which returns fake "employee" data with features such as salary, branch_id and firstname.
 The data used for the API is obtained through a MySQL database which is created and populated
 once the ```docker-compose up --build``` command is issued and is connected directly to the API
-using Pandas and SQLAlchemy.an NGINX HTTP reverse proxy has also been used, meaning that the API 
+using Pandas and SQLAlchemy. An NGINX HTTP reverse proxy has also been used, meaning that the API 
 can be accessed on port 80 as well as the API's main port of 5000.
 
 In terms of cloud infrastructure, Terraform was used to automatically provision an EC2 instance
@@ -82,4 +87,4 @@ used for the SSH connection through Jenkins, as well as the name of the key-file
 EC2 instance in the ```env.pkey``` variable. 
 
 Now the configuration is complete, go to your Jenkins UI and run the pipeline. The API should be running and can
-be accessed via the EC2 instance's IP plus the endpoint **/all**.
+be accessed via the EC2 instance's IP.

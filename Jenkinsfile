@@ -1,10 +1,10 @@
 pipeline {
     agent any
     stages {
-	stage('installDependencies') {
+	stage('installDependencies') { 
 	    steps {
 		script {
-		    load './env.groovy'
+		    load './env.groovy' //Loading environment variables
 		}
 		sshagent(credentials:["${env.sshcredentials}"]) {
 		    sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'sudo apt-get update'"
@@ -13,7 +13,7 @@ pipeline {
 	    }
 	}
     }
-	stage("makeDirs") {
+	stage("makeDirs") { //Makes directories expected by docker-compose file
 	    steps {
 		sshagent(credentials:["${env.sshcredentials}"]) {
 		    sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'mkdir API'"
@@ -21,7 +21,7 @@ pipeline {
 		}
 	    }
 	}
-        stage('moveFiles') {
+        stage('moveFiles') { //Moves all files via SCP to server 
 	    steps {
 		    sh "chmod 400 ${env.pkey}"
 		    moveFiles('docker-compose.yml', '/home/ubuntu')
@@ -39,7 +39,7 @@ pipeline {
 		    sh 'echo Files Moved Successfully!'
 	    }
 	}
-	stage('startAPI') {
+	stage('startAPI') { //Builds and runs Docker images with docker-compose
 	    steps {
 		sshagent(credentials:["${env.sshcredentials}"]) {
                     sh "ssh -t -t ubuntu@${env.EC2_PUBLIC_IP} -o StrictHostKeyChecking=no 'sudo docker-compose up --build'"
@@ -50,9 +50,9 @@ pipeline {
 
 }
 
-void moveFiles(file, path) {
+void moveFiles(file, path) { //Function takes a file to move and a path on the server to move file to
     load './env.groovy'
-    if ("${env.EC2_PUBLIC_IP}" == "") {
+    if ("${env.EC2_PUBLIC_IP}" == "") { //Checking if credentials within env file have been supplied
 	    throw new Exception('Missing value for EC2 Public IP')
 	}
     if ("${env.sshcredentials}" == "") {
