@@ -7,3 +7,5 @@ pymysql
 flask
 flask_restful
 cryptography
+Flask-Caching
+redis

@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_httpauth import HTTPBasicAuth
-from flask_cache import Cache
+from flask_caching import Cache
 from time import sleep
 from functools import wraps
 
@@ -32,6 +32,18 @@ app = Flask(__name__)
 auth = HTTPBasicAuth()
 api = Api(app)
 app.config["SECRET_KEY"] = str(uuid.uuid4())
+
+CACHE_CONFIG = {
+    "CACHE_TYPE": "redis",
+    "CACHE_REDIS_URL": "redis://redis:6379",
+    "CACHE_REDIS_HOST": "redis",
+    "CACHE_REDIS_PORT": 6379
+}
+
+
+cache = Cache(app, config = CACHE_CONFIG)
+
+
 
 @auth.verify_password
 def verify_password(username, password):
@@ -84,6 +96,7 @@ def verify_token(f):
 
 class allData(Resource):
     @verify_token
+    @cache.memoize(timeout=60)
     def get(self):
         """Endpoint returns all data from database."""
         return emp_df
