@@ -46,7 +46,8 @@ which returns fake COVID-19 data with features such as country, death count, cas
 The data used for the API is obtained through a MySQL database which is created and populated
 once the ```docker-compose up --build``` command is issued and is connected directly to the API
 using Pandas and SQLAlchemy. An NGINX HTTP reverse proxy has also been used, meaning that the API 
-can be accessed on port 80 as well as the API's main port of 5000.
+can be accessed on port 80 as well as the API's main port of 5000, as well as a Redis cache to help
+speed up the return of data if multiple requests are made within one minute.
 
 In terms of cloud infrastructure, Terraform was used to automatically provision an EC2 instance
 to run the API on, with a CI/CD pipeline ran via Jenkins being used to install dependencies and
