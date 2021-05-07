@@ -1,23 +1,21 @@
-FROM python:3.8-slim
+FROM node:latest
 
-ADD setup.py /
+WORKDIR /app
 
-COPY ./create_database.sql /
+ADD ./.env /app
 
-COPY ./create_table.sql /
+ADD ./covid-19.json /app
 
-COPY ./insert_data.sql /
+ADD ./extract.js /app/extract.js
 
-COPY ./create_users_tbl.sql /
+RUN npm install fs
 
-COPY ./add_admin_user.sql /
+RUN npm install mysql2
 
-RUN pip3 install sqlalchemy
+RUN npm install dotenv
 
-RUN pip3 install pymysql
+RUN npm install system-sleep
 
-RUN pip3 install cryptography
+ENTRYPOINT [ "node" ]
 
-ENTRYPOINT ["python3"]
-
-CMD ["setup.py"]
+CMD ["/app/extract.js"]

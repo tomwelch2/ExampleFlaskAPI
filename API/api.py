@@ -16,11 +16,11 @@ sleep(25) #Allows setup script to run before allowing querying to DB
 
 #Connecting to DB and extracting data ---
 
-URL = "mysql+pymysql://root:root@mysql:3306/company"
+URL = "mysql+pymysql://root:root@mysql:3306/mydb"
 
 engine = create_engine(URL)
 
-emp_df = pd.read_sql("SELECT * FROM employees", con = engine).to_dict(orient = "records") #Data being returned by API
+covid_df = pd.read_sql("SELECT * FROM covid", con = engine).to_dict(orient = "records") #Data being returned by API
 
 users_df = pd.read_sql("SELECT * FROM users", con = engine).to_dict(orient = "records")
 usernames = [user["username"] for user in users_df]
@@ -99,7 +99,7 @@ class allData(Resource):
     @cache.memoize(timeout=60)
     def get(self):
         """Endpoint returns all data from database."""
-        return emp_df
+        return covid_df
 
 
 
