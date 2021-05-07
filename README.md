@@ -3,6 +3,7 @@
 <h2>Repository Structure</h2>
 
 ```
+.
 ├── API
 │   ├── api.py
 │   ├── Dockerfile
@@ -15,19 +16,16 @@
 ├── nginx.conf
 ├── README.md
 ├── setup
-│   ├── add_admin_user.sql
-│   ├── create_database.sql
-│   ├── create_table.sql
-│   ├── create_users_tbl.sql
+│   ├── covid-19.json
 │   ├── Dockerfile
-│   ├── insert_data.sql
-│   └── setup.py
+│   └── extract.js
 └── terraform
     ├── main.tf
     ├── outputs.tf
     ├── terraform.tfstate
     ├── terraform.tfstate.backup
     └── terraform.tfvars
+
 
 
 ```
