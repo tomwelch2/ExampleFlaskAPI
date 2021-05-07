@@ -37,7 +37,7 @@ responsible for creating the REST API, populating a MySQL docker instance and cr
 AWS cloud infrastructure to run the API on respectively. the API and setup folders
 are designed to be ran in Docker and are used in the **docker-compose.yml** file 
 to build the API. The terraform folder, along with the Jenkinsfile, is only to be
-used if the user wished to host the API on a AWS EC2 instance - if the user wished to
+used if the user wishes to host the API on a AWS EC2 instance - if the user wishes to
 run the API locally, a simple ```docker-compose up --build``` command can be used which
 will allow local access to the API via the endpoint **http://0.0.0.0:5000**.
 
