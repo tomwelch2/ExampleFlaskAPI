@@ -44,7 +44,7 @@ will allow local access to the API via the endpoint **http://0.0.0.0:5000**.
 <h1>Architecture</h1>
 
 Flask and Flask Restful Python libraries have been used to create a simple REST API
-which returns fake "employee" data with features such as salary, branch_id and firstname.
+which returns fake COVID-19 data with features such as country, death count, cases and region.
 The data used for the API is obtained through a MySQL database which is created and populated
 once the ```docker-compose up --build``` command is issued and is connected directly to the API
 using Pandas and SQLAlchemy. An NGINX HTTP reverse proxy has also been used, meaning that the API 
@@ -65,7 +65,7 @@ at **http://0.0.0.0:5000/all**.
 To access the API, you **must access the /login endpoint first**. This will prompt you for a username
 and password, which, by default, is set to **admin** for both the username and password. A random token
 will then be generated, which you will need to pass each time you wish to access either the /all
-endpoint or the /<int:empid> endpoint in the format **http://hostname:port/endpoint?token=GENERATED_TOKEN**.
+endpoint endpoint in the format **http://hostname:port/endpoint?token=GENERATED_TOKEN**.
 
 <h2>In the cloud</h2>
 
